@@ -21,5 +21,6 @@ class Scrapy_Demo(scrapy.Spider):
 
 
         
+        
 if __name__ == '__main__':
     scrapy.cmdline.execute(argv=['scrapy', 'crawl', 'demo1'])
