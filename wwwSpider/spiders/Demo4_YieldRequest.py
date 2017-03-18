@@ -28,6 +28,7 @@ class Scrapy_Demo(scrapy.Spider):
             yield Request(url=next_url,callback=self.parse,headers=CommonHeader)
 
 
+            
 
 if __name__ == '__main__':
     scrapy.cmdline.execute(argv=['scrapy', 'crawl', 'demo4'])
