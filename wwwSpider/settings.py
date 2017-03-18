@@ -30,7 +30,6 @@ DOWNLOAD_DELAY = 0
 CONCURRENT_REQUESTS = 32
 
 
-
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'wwwSpider (+http://www.yourdomain.com)'
 
