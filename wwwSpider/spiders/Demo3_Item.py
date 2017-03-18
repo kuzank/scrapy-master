@@ -29,7 +29,7 @@ class Scrapy_Demo(scrapy.Spider):
             douBanItem['title'] = sel.xpath('div/header/h3/a/text()').extract()[0]
 
             print douBanItem
-            #yield douBanItem
+            yield douBanItem
             # or return douBanItem
 
 
