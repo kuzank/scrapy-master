@@ -1,60 +1,52 @@
-#!/usr/bin/python
-# -*- coding: UTF-8 -*-
+#!/usr/bin/env python
+# -*- coding:utf-8 -*-
 
-import scrapy
-import random
 from scrapy import cmdline
-from scrapy import FormRequest
-from scrapy import Request
-from wwwSpider.util.header import User_Agent_Lists
+import scrapy
+import json
 
-class Scrapy_Demo(scrapy.Spider):
-    name = 'demo5'
-    #allowed_domains = ['']
-    Header = {
-        'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'Accept-Language': 'zh-CN,zh;q=0.8',
-        'Cache-Control': 'max-age=0',
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Host': 'accounts.douban.com',
-        'Origin': 'https://www.douban.com',
-        'Referer': 'https://www.douban.com',
-        'user-agent': random.choice(User_Agent_Lists),
-    }
+"""
+FormRequest做用户登录
+这个是知乎的验证登录，没有做成功
+这里需要的图片验证还没有完成
+"""
+
+class ZhihuSpider(scrapy.Spider):
+    name = "demo4"
+    allowed_domains = ["www.zhihu.com"]
+    headers = {
+            'Host': 'www.zhihu.com',
+            'Referer': 'http://www.zhihu.com',
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36',
+        }
 
     def start_requests(self):
-        yield Request(url='https://www.douban.com',
-                    callback=self.douBan_login, headers=self.Header,meta={'cookiejar': 1})
+        return [scrapy.Request('http://www.zhihu.com/#signin', callback=self.zhihu_login)]
 
-    def douBan_login(self,response):
-        yield FormRequest.from_response(
-                url="https://accounts.douban.com/login",headers=self.Header,
-                meta={'cookiejar': response.meta['cookiejar']},callback=self.after_login1,
-                formdata={'form_email':'15219378950','form_password':'tobestudy520','login': u'登录'},
-        )
 
-    def after_login1(self,response):
-        yield Request(url='https://www.douban.com/accounts/login?redir=https%3A//accounts.douban.com/',
-                      callback=self.after_login2,headers=self.Header,meta={'cookiejar': response.meta['cookiejar']})
+    def zhihu_login(self, response):
+        _xsrf = response.xpath(".//*[@id='sign-form-1']/input[2]/@value").extract()[0]
+        return [scrapy.FormRequest(
+                url = 'http://www.zhihu.com/login/email',    # 这是post的真实地址
+                formdata={'_xsrf': _xsrf,
+                    'account': '15219378950',    # email
+                    'password': 'tobestudy520',    # password
+                    'remember_me': 'true',
+                },
+                headers=self.headers,
+                callback=self.page_content,
+        )]
 
-    def after_login2(self, response):
-        yield FormRequest.from_response(
-            url="https://accounts.douban.com/login", headers=self.Header,
-            meta={'cookiejar': response.meta['cookiejar']}, callback=self.parse,
-            formdata={'form_email': '', 'form_password': ''},
-        )
 
-    def parse(self, response):
-        with open('e://douban.txt','w') as f:
+    def page_content(self, response):
+        with open('e://first_page.html', 'wb') as f:
             f.write(response.body)
-        name = response.xpath('//a[@target="_blank"]/span/text()').extract()
-        print name
-        if len(name) > 0:
-            print "Your DouBan Name Is : " + name
-
+        print response.body
+        print u'\u9a8c\u8bc1\u7801\u9519\u8bef'
 
 
 
 if __name__ == '__main__':
-    scrapy.cmdline.execute(argv=['scrapy', 'crawl', 'demo5'])
+    cmdline.execute(argv=['scrapy', 'crawl', 'demo4'])
+
+
