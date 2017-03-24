@@ -12,7 +12,7 @@ FormRequest做用户登录
 """
 
 class ZhihuSpider(scrapy.Spider):
-    name = "demo4"
+    name = "demo5"
     allowed_domains = ["www.zhihu.com"]
     headers = {
             'Host': 'www.zhihu.com',
@@ -47,6 +47,6 @@ class ZhihuSpider(scrapy.Spider):
 
 
 if __name__ == '__main__':
-    cmdline.execute(argv=['scrapy', 'crawl', 'demo4'])
+    cmdline.execute(argv=['scrapy', 'crawl', 'demo5'])
 
 
