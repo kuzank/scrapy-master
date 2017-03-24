@@ -12,14 +12,12 @@ from scrapy_splash import SplashRequest
     不要滥用scrapy-splash，能不用就不用
     除非异步加载数据真真的很难解析，不然不要用渲染，这是终极武器
 
-
 有些网页数据是通过异步加载完成的，通过抓包分析和提取一般可以解析到这些数据
 但是也有一些数据是用dwr传送的，
 例如http://study.163.com/course/introduction/1455026.htm#/courseDetail，在通过对这个页面进行抓包
 在抓包文件http://study.163.com/dwr/call/plaincall/PlanNewBean.getPlanCourseDetail.dwr?1490328841060中
 你会发现这些异步数据很难去解析
 还有很多无法解析的情况
-
 
 这个时候我们就可以使用scrapy-splash进行页面渲染，再去解析数据
 """
