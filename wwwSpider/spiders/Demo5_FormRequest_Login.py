@@ -29,8 +29,8 @@ class ZhihuSpider(scrapy.Spider):
         return [scrapy.FormRequest(
                 url = 'http://www.zhihu.com/login/email',    # 这是post的真实地址
                 formdata={'_xsrf': _xsrf,
-                    'account': '15219378950',    # email
-                    'password': 'tobestudy520',    # password
+                    'account': '',    # username
+                    'password': '',    # password
                     'remember_me': 'true',
                 },
                 headers=self.headers,
