@@ -30,8 +30,7 @@ CONCURRENT_REQUESTS = 32
 ################## splash渲染器配置  #########################
 
 # splash渲染器服务器地址
-# http://120.76.190.105:32769/
-SPLASH_URL = 'http://120.76.190.105:32769'
+SPLASH_URL = ''
 
 # 将splash middleware添加到DOWNLOADER_MIDDLEWARE中：
 DOWNLOADER_MIDDLEWARES = {
