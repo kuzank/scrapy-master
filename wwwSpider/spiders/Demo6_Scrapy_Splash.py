@@ -8,6 +8,7 @@ from scrapy_splash import SplashRequest
 """
 前提：
     安装scrapy-splash：pip install scrapy-splash
+    要使用渲染必须在服务器上安装一个splash渲染容器,并在setting中配置好渲染参数才能使用
 提醒：
     不要滥用scrapy-splash，能不用就不用
     除非异步加载数据真真的很难解析，不然不要用渲染，这是终极武器
