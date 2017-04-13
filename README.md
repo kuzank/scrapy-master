@@ -1,4 +1,4 @@
-    In This Project,We are Talking About Scrapy Demo Which Was Using For Learning.
+    In This Project,We Are Talking About Scrapy Demo Which Was Using For Learning.
 
     About Scrapy Frame：
         Scrapy是Python开发的一个快速,高层次的屏幕抓取和web抓取框架，用于抓取web站点并从页面中提取结构化的数据。
